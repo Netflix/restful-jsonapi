@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "restful-jsonapi"
   spec.version       = Restful::Jsonapi::VERSION
   spec.authors       = ["Zach Wentz"]
-  spec.email         = ["zkwentz@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.email         = ["zwentz@netflix.com"]
+  spec.summary       = %q{Nice type and params for temporary JSONAPI support.}
+  spec.description   = %q{Nice type and params for temporary JSONAPI support.}
+  spec.homepage      = "https://stash.corp.netflix.com/projects/EP/repos/restful-jsonapi/browse"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

@@ -7,6 +7,12 @@ module Restful
           include Restful::Jsonapi::RestifyParam
         end
       end
+      initializer "restful-jsonapi.active_model_serializer" do
+        ActiveModel::Serializer.class_eval do
+          puts "Extending #{self} with Restful::Jsonapi::ActiveModelSerializer"
+          include Restful::Jsonapi::ActiveModelSerializer
+        end
+      end
     end
   end
 end
