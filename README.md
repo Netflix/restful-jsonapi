@@ -1,13 +1,13 @@
 # Restful::Jsonapi
 
-TODO: Write a gem description
+A temporary monkeypatch for JSONAPI support, both in request payload, and serializing the type without a namespace.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'restful-jsonapi'
+gem 'restful-jsonapi', git: 'ssh://git@stash.corp.netflix.com:7999/ep/restful-jsonapi.git'
 ```
 
 And then execute:
@@ -20,7 +20,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+class MovieTypesController < ApplicationController
+
+  ...
+ 
+  private
+
+  def movie_type_params
+    restify_param(:movie_type).require(:movie_type).permit(
+      :id,
+      :name,
+      created_user: [
+        :id,
+        :email
+      ]
+  end
+end
 
 ## Contributing
 
