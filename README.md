@@ -37,6 +37,7 @@ class MovieTypesController < ApplicationController
       ]
   end
 end
+```
 
 ## Contributing
 
