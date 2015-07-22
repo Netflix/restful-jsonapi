@@ -5,7 +5,7 @@ module Restful
 
       included do
         def type
-          object.class.model_name.name.demodulize.pluralize.downcase
+          object.class.model_name.name.demodulize.pluralize.underscore
         end
       end
     end
