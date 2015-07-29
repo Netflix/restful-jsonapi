@@ -17,6 +17,7 @@ module Restful
           if value[:data].delete(:type).underscore == param_key.to_s.pluralize
             new_params = ActionController::Parameters.new
             attributes = value[:data].has_key?(:attributes) ? value[:data][:attributes] : value[:data]
+            attributes.merge!(id: value[:data][:id]) if value[:data][:id]
             attributes.transform_keys!(&:underscore)
             new_params.merge!(attributes)
             if value[:data].has_key? :relationships
