@@ -3,7 +3,7 @@ module Restful
     module SerializableErrors
       extend ActiveSupport::Concern
 
-      def serialzable_errors(object)
+      def serializable_errors(object)
         json = {}
 
         errors = object.errors

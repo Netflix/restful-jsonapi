@@ -28,7 +28,11 @@ module Restful
                     new_params["#{k}_id"] = nil
                   end
                 else
-                  new_params[k.to_s.underscore] = restify_value(k,v)
+                  relationship_key = k.to_s.underscore.singularize+"_attributes"
+                  new_params[relationship_key] ||= []
+                  v[:data].each do |vv|
+                    new_params[relationship_key].push restify_value(k,vv)
+                  end unless v[:data].nil?
                 end
               end
             end
