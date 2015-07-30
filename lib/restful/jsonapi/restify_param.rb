@@ -27,11 +27,17 @@ module Restful
                 else
                   new_params["#{k}_id"] = nil
                 end
-              else
+              elsif v[:attributes].present?
                 relationship_key = k.to_s.underscore+"_attributes"
                 new_params[relationship_key] ||= []
                 v[:data].each do |vv|
                   new_params[relationship_key].push restify_value(k,vv)
+                end unless v[:data].nil?
+              else
+                relationship_key = k.to_s.singularize.underscore+"_ids"
+                new_params[relationship_key] ||= []
+                v[:data].each do |vv|
+                  new_params[relationship_key].push vv[:id]
                 end unless v[:data].nil?
               end
             end
