@@ -4,13 +4,14 @@ module Restful
       extend ActiveSupport::Concern
 
       def serializable_errors(object)
+        errors = object.errors
+        prefix = object.class.to_s.demodulize.underscore
+
         json = {}
 
-        errors = object.errors
-
-        new_hash = errors.to_hash(true).map do |k, v|
+        new_hash = errors.to_hash.map do |k, v|
           v.map do |msg|
-            { id: k, title: msg }
+            { id: "#{prefix}.#{k}", title: msg }
           end
         end.flatten
 
