@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["zwentz@netflix.com"]
   spec.summary       = %q{Nice type and params for temporary JSONAPI support.}
   spec.description   = %q{Nice type and params for temporary JSONAPI support.}
-  spec.homepage      = "https://stash.corp.netflix.com/projects/EP/repos/restful-jsonapi/browse"
+  spec.homepage      = "https://github.com/Netflix/restful-jsonapi"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
