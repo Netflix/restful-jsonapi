@@ -2,6 +2,9 @@
 
 A temporary monkeypatch for JSONAPI support, both in request payload, and serializing the type without a namespace.
 
+[![Gem Version](https://badge.fury.io/rb/restful-jsonapi.svg)](http://badge.fury.io/rb/restful-jsonapi)
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
