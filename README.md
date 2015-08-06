@@ -7,7 +7,7 @@ A temporary monkeypatch for JSONAPI support, both in request payload, and serial
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'restful-jsonapi', git: 'ssh://git@stash.corp.netflix.com:7999/ep/restful-jsonapi.git'
+gem 'restful-jsonapi'
 ```
 
 And then execute:
