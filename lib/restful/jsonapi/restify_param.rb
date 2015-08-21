@@ -50,18 +50,22 @@ module Restful
       end
 
       def restify_has_many(relationship_name, relationship_data)
-        if relationship_data[:data].select(&:attributes).blank?
-          relationship_key = relationship_name.to_s.singularize.underscore+"_ids"
-          new_params[relationship_key] ||= []
-          relationship_data[:data].each do |vv|
-            new_params[relationship_key].push vv[:id]
-          end unless relationship_data[:data].nil?
-        else
-          relationship_key = relationship_name.to_s.underscore+"_attributes"
-          new_params[relationship_key] ||= []
-          relationship_data[:data].each do |vv|
-            new_params[relationship_key].push restify_data(relationship_name,vv[:data])
-          end unless relationship_data[:data].nil?
+        if relationship_data[:data].present?
+          if relationship_data[:data].select{|d|d[:attributes]||d[:relationships]}.blank?
+            relationship_key = relationship_name.to_s.singularize.underscore+"_ids"
+            relationship = []
+            relationship_data[:data].each do |vv|
+              relationship.push vv[:id]
+            end
+            {relationship_key => relationship}
+          else
+            relationship_key = relationship_name.to_s.underscore+"_attributes"
+            relationship = []
+            relationship_data[:data].each do |vv|
+              relationship.push restify_data(relationship_name,vv)
+            end
+            {relationship_key => relationship}
+          end
         end
       end
 
