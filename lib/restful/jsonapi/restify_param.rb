@@ -31,7 +31,7 @@ module Restful
       end
 
       def restify_relationship(relationship_name, relationship_data)
-        if relationship_data[:data].present?
+        if data_is_present?(relationship_data[:data])
           if relationship_data[:data].is_a? Hash
             restify_belongs_to(relationship_name, relationship_data)
           else
@@ -50,7 +50,7 @@ module Restful
       end
 
       def restify_has_many(relationship_name, relationship_data)
-        if relationship_data[:data].present?
+        if data_is_present?(relationship_data[:data])
           if relationship_data[:data].select{|d|d[:attributes]||d[:relationships]}.blank?
             relationship_key = relationship_name.to_s.singularize.underscore+"_ids"
             relationship = []
@@ -67,6 +67,10 @@ module Restful
             {relationship_key => relationship}
           end
         end
+      end
+
+      def data_is_present?(data)
+        data.is_a? Array or data.present?
       end
 
     end
