@@ -41,7 +41,7 @@ module Restful
       end
 
       def restify_belongs_to(relationship_name, relationship_data)
-        if relationship_data[:data].has_key? :attributes
+        if relationship_data[:data].values_at(:attributes,:relationships).compact.length > 0
           relationship_key = relationship_name.to_s.underscore+"_attributes"
           {relationship_key => restify_data(relationship_name,relationship_data[:data])}
         else
