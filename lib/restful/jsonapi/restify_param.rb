@@ -19,7 +19,7 @@ module Restful
         if value.has_key? :relationships
           value.delete(:relationships).each do |relationship_name, relationship_data|
             new_data = restify_relationship(relationship_name, relationship_data)
-            new_params.merge! new_data if new_data.present?
+            new_params.merge! new_data.to_h if new_data.present?
           end
         end
         # attributes
@@ -32,10 +32,10 @@ module Restful
 
       def restify_relationship(relationship_name, relationship_data)
         if data_is_present?(relationship_data[:data])
-          if relationship_data[:data].is_a? Hash
-            restify_belongs_to(relationship_name, relationship_data)
-          else
+          if relationship_data[:data].is_a? Array
             restify_has_many(relationship_name, relationship_data)
+          else
+            restify_belongs_to(relationship_name, relationship_data)
           end
         end
       end
@@ -45,7 +45,7 @@ module Restful
           relationship_key = relationship_name.to_s.underscore+"_attributes"
           {relationship_key => restify_data(relationship_name,relationship_data[:data])}
         else
-          {"#{relationship_name}_id" => relationship_data[:data][:id]}
+          {"#{relationship_name.underscore}_id" => relationship_data[:data][:id]}
         end
       end
 
