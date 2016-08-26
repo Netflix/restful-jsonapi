@@ -6,8 +6,8 @@ require 'restful/jsonapi/version'
 Gem::Specification.new do |spec|
   spec.name          = "restful-jsonapi"
   spec.version       = Restful::Jsonapi::VERSION
-  spec.authors       = ["Zach Wentz"]
-  spec.email         = ["zwentz@netflix.com"]
+  spec.authors       = ["Zach Wentz", "Ryan Johnston", "David Lee"]
+  spec.email         = ["zwentz@netflix.com", "ryanj@netflix.com", "dalee@netflix.com"]
   spec.summary       = %q{Nice type and params for temporary JSONAPI support.}
   spec.description   = %q{Nice type and params for temporary JSONAPI support.}
   spec.homepage      = "https://github.com/Netflix/restful-jsonapi"

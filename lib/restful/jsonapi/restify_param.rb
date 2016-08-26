@@ -19,14 +19,14 @@ module Restful
         if value.has_key? :relationships
           value.delete(:relationships).each do |relationship_name, relationship_data|
             new_data = restify_relationship(relationship_name, relationship_data)
-            new_params.merge! new_data.to_h if new_data.present?
+            new_params = new_params.merge(new_data.to_h) if new_data.present?
           end
         end
         # attributes
         attributes = value.has_key?(:attributes) ? value[:attributes] : value
-        attributes.merge!(id: value[:id]) if value[:id]
+        attributes = attributes.merge(id: value[:id]) if value[:id]
         attributes.transform_keys!(&:underscore)
-        new_params.merge!(attributes)
+        new_params = new_params.merge(attributes.to_unsafe_h)
         new_params
       end
 
