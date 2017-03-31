@@ -16,7 +16,7 @@ module Restful
           puts "Extending #{self} with Restful::Jsonapi::ActiveModelSerializer"
           include Restful::Jsonapi::ActiveModelSerializer
         end
-      end
+      end if defined? ActiveModel::Serializer
     end
   end
 end
