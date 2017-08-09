@@ -34,7 +34,7 @@ module Restful
         if data_is_present?(relationship_data[:data]) && relationship_data[:data].is_a?(Array)
           restify_has_many(relationship_name, relationship_data)
         end
-        if relationship_data[:data].is_a? Hash
+        if relationship_data[:data].is_a?(Hash)
           restify_belongs_to(relationship_name, relationship_data)
         end
       end
