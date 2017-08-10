@@ -44,7 +44,6 @@ module Restful
           {relationship_key => restify_data(relationship_name,relationship_data[:data])}
         else
           if relationship_data[:data].nil?
-            puts "setting id to nil from restulf-jsonapi"
             {"#{relationship_name.underscore}_id" => nil}
           else
             {"#{relationship_name.underscore}_id" => relationship_data[:data][:id]}
