@@ -43,7 +43,7 @@ module Restful
           relationship_key = relationship_name.to_s.underscore+"_attributes"
           {relationship_key => restify_data(relationship_name,relationship_data[:data])}
         else
-          if relationship_data[:data].nil?
+          if relationship_data[:data].nil? || relationship_data[:data].empty?
             {"#{relationship_name.underscore}_id" => nil}
           else
             {"#{relationship_name.underscore}_id" => relationship_data[:data][:id]}
