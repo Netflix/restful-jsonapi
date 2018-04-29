@@ -3,13 +3,13 @@ module Restful
     module RestifyParam
       extend ActiveSupport::Concern
 
-      def restify_param(param_key)
-        ActionController::Parameters.new(param_key => restify_data(param_key))
+      def restify_param(param_key, options = {})
+        ActionController::Parameters.new(param_key => restify_data(param_key, options))
       end
 
       private
 
-      def restify_data(param_key, value = params)
+      def restify_data(param_key, value: params, deep_transform: false)
         if value == params
           value = params.clone[:data] # leave params alone
         end
@@ -25,8 +25,9 @@ module Restful
         # attributes
         attributes = value.has_key?(:attributes) ? value[:attributes] : value
         attributes = attributes.merge(id: value[:id]) if value[:id]
-        attributes.transform_keys!(&:underscore)
-        new_params = new_params.merge(attributes.to_unsafe_h)
+        attributes = attributes.to_unsafe_h
+        attributes = deep_transform ? attributes.deep_transform_keys(&:underscore) : attributes.transform_keys(&:underscore)
+        new_params = new_params.merge(attributes)
         new_params
       end
 
@@ -41,7 +42,7 @@ module Restful
       def restify_belongs_to(relationship_name, relationship_data)
         if relationship_data[:data].present? and relationship_data[:data].values_at(:attributes,:relationships).compact.length > 0
           relationship_key = relationship_name.to_s.underscore+"_attributes"
-          {relationship_key => restify_data(relationship_name,relationship_data[:data])}
+          {relationship_key => restify_data(relationship_name, value: relationship_data[:data])}
         else
           if relationship_data[:data].nil? || relationship_data[:data].empty?
             {"#{relationship_name.underscore}_id" => nil}
@@ -64,7 +65,7 @@ module Restful
             relationship_key = relationship_name.to_s.underscore+"_attributes"
             relationship = []
             relationship_data[:data].each do |vv|
-              relationship.push restify_data(relationship_name,vv)
+              relationship.push restify_data(relationship_name, value: vv)
             end
             {relationship_key => relationship}
           end
