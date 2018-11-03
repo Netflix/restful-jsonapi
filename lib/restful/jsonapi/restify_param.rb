@@ -40,15 +40,19 @@ module Restful
 
       def restify_belongs_to(relationship_name, relationship_data)
         if relationship_data[:data].present? and relationship_data[:data].values_at(:attributes,:relationships).compact.length > 0
-          relationship_key = relationship_name.to_s.underscore+"_attributes"
-          {relationship_key => restify_data(relationship_name,relationship_data[:data])}
-        else
-          if relationship_data[:data].nil? || relationship_data[:data].empty?
-            {"#{relationship_name.underscore}_id" => nil}
-          else
-            {"#{relationship_name.underscore}_id" => relationship_data[:data][:id]}
-          end
+          relationship_key = relationship_name.to_s.underscore + '_attributes'
+          return { relationship_key => restify_data(relationship_name, relationship_data[:data]) }
         end
+
+        key = relationship_name.underscore
+        belongs_to = { "#{key}_id" => nil }
+        data = relationship_data[:data]
+        return belongs_to if data.nil? || data.empty?
+
+        belongs_to["#{key}_id"] = data[:id] if data[:id]
+        belongs_to["#{key}_type"] = data[:type].singularize.capitalize if data[:type]
+
+        belongs_to
       end
 
       def restify_has_many(relationship_name, relationship_data)
