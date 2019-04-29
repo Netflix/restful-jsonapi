@@ -13,8 +13,9 @@ module Restful
         if value == params
           value = params.clone[:data] # leave params alone
         end
-        value.delete(:type)
         new_params = ActionController::Parameters.new
+        return new_params if value.nil?
+        value.delete(:type)
         # relationships
         if value.has_key? :relationships
           value.delete(:relationships).each do |relationship_name, relationship_data|
