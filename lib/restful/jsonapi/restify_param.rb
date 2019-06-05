@@ -47,7 +47,11 @@ module Restful
           if relationship_data[:data].nil? || relationship_data[:data].empty?
             {"#{relationship_name.underscore}_id" => nil}
           else
-            {"#{relationship_name.underscore}_id" => relationship_data[:data][:id]}
+            if relationship_data[:data].has_key?(:type)
+              {"#{relationship_name.underscore}_id" => relationship_data[:data][:id], "#{relationship_name.underscore}_type" => relationship_data[:data][:type].to_s} 
+            else
+              {"#{relationship_name.underscore}_id" => relationship_data[:data][:id]}
+            end
           end
         end
       end
