@@ -38,6 +38,7 @@ class MovieTypesController < ApplicationController
         :id,
         :email
       ]
+    )
   end
 end
 ```
